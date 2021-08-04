@@ -36,6 +36,30 @@ namespace Spreetail
                 case "remove":
                     Remove(userInput);
                     break;
+
+                case "removeall":
+                    RemoveAll(userInput);
+                    break;
+
+                case "clear":
+                    Clear();
+                    break;
+
+                case "keyexists":
+                    KeyExists(userInput);
+                    break;
+
+                case "memberexists":
+                    MemberExists(userInput);
+                    break;
+
+                case "allmembers":
+                    AllMembers();
+                    break;
+
+                case "items":
+                    Items();
+                    break;
             }
         }
 
@@ -120,6 +144,79 @@ namespace Spreetail
                 iteration++;
             }
 
+        }
+
+        public void RemoveAll(List<string> values)
+        {
+            if(!dictionary.ContainsKey(values[0]))
+            {
+                Console.WriteLine("ERROR, key does not exist");
+                return;
+            }
+
+            dictionary.Remove(values[0]);
+            Console.WriteLine("Removed");
+        }
+
+        public void Clear()
+        {
+            dictionary.Clear();
+            Console.WriteLine("Cleared");
+        }
+
+        public void KeyExists(List<string> values)
+        {
+            if (dictionary.ContainsKey(values[0]))
+                Console.WriteLine(") true");
+
+            else Console.WriteLine(") false");
+        }
+
+        public void MemberExists(List<string> values)
+        {
+            if (dictionary.ContainsKey(values[0]))
+            {
+                List<string> members = dictionary[values[0]];
+
+                if (members.Contains(values[1])) Console.WriteLine(") true");
+                else Console.WriteLine(") false");
+            }
+        }
+
+        public void AllMembers()
+        {
+            if(dictionary.Count == 0)
+            {
+                Console.WriteLine("empty set");
+                return;
+            }
+            int iteration = 1;
+            foreach(var list in dictionary)
+            {
+                foreach(string item in list.Value)
+                {
+                    Console.WriteLine(iteration + ")" + " " + item);
+                    iteration++;
+                }
+            }
+        }
+
+        public void Items()
+        {
+            if (dictionary.Count == 0)
+            {
+                Console.WriteLine("empty set");
+                return;
+            }
+            int iteration = 1;
+            foreach (var list in dictionary)
+            {
+                foreach (string item in list.Value)
+                {
+                    Console.WriteLine(iteration + ")" + " " + list.Key + " " + item);
+                    iteration++;
+                }
+            }
         }
     }
 }

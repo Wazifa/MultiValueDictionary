@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace Spreetail
 {
@@ -59,6 +60,14 @@ namespace Spreetail
 
                 case "items":
                     Items();
+                    break;
+
+                case "find":
+                    MultipleExistence(userInput);
+                    break;
+
+                case "duplicates":
+                    FindDuplicates(userInput);
                     break;
             }
         }
@@ -217,6 +226,45 @@ namespace Spreetail
                     iteration++;
                 }
             }
+        }
+
+        public void MultipleExistence(List<string> values)
+        {
+            int count = 0;
+
+            // find bar
+
+            foreach(var item in dictionary)
+            {
+                if (item.Value.Contains(values[0])) count++;
+            }
+
+            Console.WriteLine(count);
+        }
+
+        public void FindDuplicates(List<string> values)
+        {
+            List<string> duplicates = new List<string>();
+            StringBuilder response = new StringBuilder("");
+
+            if (dictionary.ContainsKey(values[0]))
+                duplicates = dictionary[values[0]];
+
+            if (dictionary.ContainsKey(values[1]))
+            {
+                foreach(var value in dictionary[values[1]])
+                {
+                    if (duplicates.Contains(value))
+                    {
+                        response.Append(value);
+                        response.Append(" ");
+                    }
+                        
+
+                }
+            }
+
+            Console.WriteLine(response);
         }
     }
 }
